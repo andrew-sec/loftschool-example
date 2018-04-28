@@ -112,11 +112,10 @@ returnArgumentsArray(1, 2, 3) //вернет [1, 2, 3]
  */
 function bindFunction(fn) {
 
-  return function() {
+  var args = Array.from(arguments).slice(1);
 
-    return fn.apply(context, arguments);
-  };
-}
+  return fn.bind(null, ...args);
+  }
 
 function sum(a, b) {
 
@@ -124,8 +123,7 @@ function sum(a, b) {
 }
 
 var newSum = bindFunction(sum, 2, 4);
-
-console.log(newSum(2, 4)) //выведет 6
+console.log(newSum()) //выведет 6
 
 export {
     returnFirstArgument,
