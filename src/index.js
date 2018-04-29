@@ -14,10 +14,10 @@
  */
 function returnFirstArgument(val) {
 
-  return val;
+    return val;
 }
-returnFirstArgument(10) //вернет 10
-returnFirstArgument('привет') //вернет `привет`
+returnFirstArgument(10) // cвернет 10
+returnFirstArgument('привет') // вернет `привет`
 
 /*
  Задание 2:
@@ -35,11 +35,11 @@ returnFirstArgument('привет') //вернет `привет`
  */
 function sumWithDefaults(a, b = 100) {
 
-  return a + b;
+    return a + b;
 }
-sumWithDefaults(10, 20); //вернет 30
-sumWithDefaults(2, 4); //вернет 6
-sumWithDefaults(10) //вернет 110
+sumWithDefaults(10, 20); // вернет 30
+sumWithDefaults(2, 4); // вернет 6
+sumWithDefaults(10) // вернет 110
 
 /*
  Задание 3:
@@ -51,9 +51,9 @@ sumWithDefaults(10) //вернет 110
  */
 function returnFnResult(fn) {
 
-  return fn();
+    return fn();
 }
-returnFnResult(() => 'привет') //вернет 'привет'
+returnFnResult(() => 'привет') // вернет 'привет'
 
 /*
  Задание 4:
@@ -70,9 +70,9 @@ returnFnResult(() => 'привет') //вернет 'привет'
  */
 function returnCounter(number = 0) {
 
-  return function() {
-    return ++number;
-  };
+    return function() {
+        return ++number;
+    };
 }
 var f = returnCounter(10);
 
@@ -91,9 +91,9 @@ console.log(f()); // выведет 13
  */
 function returnArgumentsArray() {
   
-  return Array.from(arguments);
+    return Array.from(arguments);
 }
-returnArgumentsArray(1, 2, 3) //вернет [1, 2, 3]
+returnArgumentsArray(1, 2, 3) // вернет [1, 2, 3]
 
 /*
  Задание 6 *:
@@ -110,20 +110,57 @@ returnArgumentsArray(1, 2, 3) //вернет [1, 2, 3]
 
    console.log(newSum()) выведет 6
  */
+/* Bind */
+// function bindFunction(fn) {
+
+//     var args = Array.from(arguments).slice(1);
+
+//     return fn.bind(null, args);
+// }
+
+// function sum(a, b) {
+
+//     return a + b;
+// }
+
+// var newSum = bindFunction(sum, 2, 4);
+// console.log(newSum()) // выведет 6
+
+/* Apply */
 function bindFunction(fn) {
 
-  var args = Array.from(arguments).slice(1);
-
-  return fn.bind(null, ...args);
+    var args = Array.from(arguments).slice(1);
+    
+    return function() {
+      return fn.apply(null, args);
+    }
   }
+  
+  function sum(a, b) {
+  
+    return a + b;
+  }
+  
+  var newSum = bindFunction(sum, 2, 4);
+  console.log(newSum()) // выведет 6
 
-function sum(a, b) {
+  /* Call */
+//   function bindFunction(fn) {
 
-  return a + b;
-}
-
-var newSum = bindFunction(sum, 2, 4);
-console.log(newSum()) //выведет 6
+//     var args = Array.from(arguments).slice(1);
+    
+//     return function() {
+//       return fn.call(null, ...args);
+//     }
+//   }
+  
+//   function sum(a, b) {
+  
+//     return a + b;
+//   }
+  
+//   var newSum = bindFunction(sum, 2, 4);
+//   console.log(newSum()) // выведет 6
 
 export {
     returnFirstArgument,
