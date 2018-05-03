@@ -1,172 +1,102 @@
-/* ДЗ 1 - Функции */
+/* ДЗ 2 - работа с массивами и объеектами */
 
 /*
  Задание 1:
 
- 1.1: Добавьте к функции параметр с любым именем
- 1.2: Функция должна возвращать аргумент, переданный ей в качестве параметра
-
- Пример:
-   returnFirstArgument(10) вернет 10
-   returnFirstArgument('привет') вернет `привет`
-
- Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
+ Напишите аналог встроенного метода forEach для работы с массивами
+ Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
-function returnFirstArgument(val) {
-
-    return val;
+function forEach(array, fn) {
+    for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+        
+        fn(element, i, array);
+    }
 }
-returnFirstArgument(10) // cвернет 10
-returnFirstArgument('привет') // вернет `привет`
 
 /*
  Задание 2:
 
- 2.1: Функция должна возвращать сумму переданных аргументов
-
- Пример:
-   sumWithDefaults(10, 20) вернет 30
-   sumWithDefaults(2, 4) вернет 6
-
- 2.1 *: Значение по умолчанию для второго аргумента должно быть равно 100
-
- Пример:
-   sumWithDefaults(10) вернет 110
+ Напишите аналог встроенного метода map для работы с массивами
+ Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
-function sumWithDefaults(a, b = 100) {
+function map(array, fn) {
+    let newArr = [];
 
-    return a + b;
+    for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+
+        newArr.push(fn(element, i, array));
+    }
+    return newArr;
 }
-sumWithDefaults(10, 20); // вернет 30
-sumWithDefaults(2, 4); // вернет 6
-sumWithDefaults(10) // вернет 110
 
 /*
  Задание 3:
 
- Функция должна принимать другую функцию и возвращать результат вызова этой функции
+ Напишите аналог встроенного метода reduce для работы с массивами
+ Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
 
- Пример:
-   returnFnResult(() => 'привет') вернет 'привет'
+× должна вызывать функцию для каждого элемента и передавать предыдущий результат первым аргументом
+× если initial не указан, то при первой итерации в prev передается первый элемент массива
+× должна передавать элемент вторым аргументом
+× должна передавать индекс элемента третьим аргументом
+× общая проверка работоспособности
+
  */
-function returnFnResult(fn) {
-
-    return fn();
+function reduce(array, fn, initial) {
+    let previousValue = initial || array[0];
+    let i = initial ? 0 : 1;
+   
+    for (i; i < array.length; i++) {
+        const element = array[i];
+        
+        previousValue = fn(previousValue, element, i, array);  
+    }
+    
+    return previousValue;
 }
-returnFnResult(() => 'привет') // вернет 'привет'
 
 /*
  Задание 4:
 
- Функция должна принимать число и возвращать новую функцию (F)
- При вызове функции F, переданное ранее число должно быть увеличено на единицу и возвращено из F
+ Функция должна перебрать все свойства объекта, преобразовать их имена в верхний регистр и вернуть в виде массива
 
  Пример:
-   var f = returnCounter(10);
-
-   console.log(f()); // выведет 11
-   console.log(f()); // выведет 12
-   console.log(f()); // выведет 13
+   upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function returnCounter(number = 0) {
+function upperProps(obj) {
+    let result = [];
+    for (const prop in obj) {
+        result.push(prop.toUpperCase());
+    }
 
-    return function() {
-        return ++number;
-    };
+    return result;
 }
-var f = returnCounter(10);
-
-console.log(f()); // выведет 11
-console.log(f()); // выведет 12
-console.log(f()); // выведет 13
 
 /*
  Задание 5 *:
 
- Функция должна возвращать все переданные ей аргументы в виде массива
- Количество переданных аргументов заранее неизвестно
-
- Пример:
-   returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
+ Напишите аналог встроенного метода slice для работы с массивами
+ Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
  */
-function returnArgumentsArray() {
-  
-    return Array.from(arguments);
+function slice(array, from, to) {
 }
-returnArgumentsArray(1, 2, 3) // вернет [1, 2, 3]
 
 /*
  Задание 6 *:
 
- Функция должна принимать другую функцию (F) и некоторое количество дополнительных аргументов
- Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию
-
- Пример:
-   function sum(a, b) {
-     return a + b;
-   }
-
-   var newSum = bindFunction(sum, 2, 4);
-
-   console.log(newSum()) выведет 6
+ Функция принимает объект и должна вернуть Proxy для этого объекта
+ Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квадрат
  */
-/* Bind */
-// function bindFunction(fn) {
-
-//     var args = Array.from(arguments).slice(1);
-
-//     return fn.bind(null, args);
-// }
-
-// function sum(a, b) {
-
-//     return a + b;
-// }
-
-// var newSum = bindFunction(sum, 2, 4);
-// console.log(newSum()) // выведет 6
-
-/* Apply */
-function bindFunction(fn) {
-
-    var args = Array.from(arguments).slice(1);
-    
-    return function() {
-      return fn.apply(null, args);
-    }
-  }
-  
-  function sum(a, b) {
-  
-    return a + b;
-  }
-  
-  var newSum = bindFunction(sum, 2, 4);
-  console.log(newSum()) // выведет 6
-
-  /* Call */
-//   function bindFunction(fn) {
-
-//     var args = Array.from(arguments).slice(1);
-    
-//     return function() {
-//       return fn.call(null, ...args);
-//     }
-//   }
-  
-//   function sum(a, b) {
-  
-//     return a + b;
-//   }
-  
-//   var newSum = bindFunction(sum, 2, 4);
-//   console.log(newSum()) // выведет 6
+function createProxy(obj) {
+}
 
 export {
-    returnFirstArgument,
-    sumWithDefaults,
-    returnArgumentsArray,
-    returnFnResult,
-    returnCounter,
-    bindFunction
-}
+    forEach,
+    map,
+    reduce,
+    upperProps,
+    slice,
+    createProxy
+};
