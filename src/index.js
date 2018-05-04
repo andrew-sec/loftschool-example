@@ -8,9 +8,8 @@
  */
 function forEach(array, fn) {
     for (let i = 0; i < array.length; i++) {
-        const element = array[i];
         
-        fn(element, i, array);
+        fn(array[i], i, array);
     }
 }
 
@@ -24,9 +23,8 @@ function map(array, fn) {
     let newArr = [];
 
     for (let i = 0; i < array.length; i++) {
-        const element = array[i];
-
-        newArr.push(fn(element, i, array));
+        
+        newArr.push(fn(array[i], i, array));
     }
     return newArr;
 }
@@ -37,21 +35,14 @@ function map(array, fn) {
  Напишите аналог встроенного метода reduce для работы с массивами
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
 
-× должна вызывать функцию для каждого элемента и передавать предыдущий результат первым аргументом
-× если initial не указан, то при первой итерации в prev передается первый элемент массива
-× должна передавать элемент вторым аргументом
-× должна передавать индекс элемента третьим аргументом
-× общая проверка работоспособности
-
  */
 function reduce(array, fn, initial) {
     let previousValue = initial || array[0];
     let i = initial ? 0 : 1;
    
     for (i; i < array.length; i++) {
-        const element = array[i];
         
-        previousValue = fn(previousValue, element, i, array);  
+        previousValue = fn(previousValue, array[i], i, array);  
     }
     
     return previousValue;
