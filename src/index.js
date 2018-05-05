@@ -20,6 +20,8 @@ function isAllTrue(array, fn) {
     
     if (array.length === 0 || !(array instanceof Array)) {
         throw new Error('empty array');
+    } else if (typeof fn != 'function') {
+        throw new Error('fn is not a function');
     }
 
     for (let i = 0; i < array.length; i++) {
@@ -59,7 +61,7 @@ function isSomeTrue(array, fn) {
     for (let i = 0; i < array.length; i++) {
         if (fn(array[i])) {
 
-            return true;
+            return fn(array[i]);
         }
     }
 
@@ -116,53 +118,47 @@ function calculator(number = 0) {
     if (typeof number != 'number') {
 
         throw new Error('number is not a number');
-    }
-    try {    
-        let obj = {
-            sum() {
-                for (let i = 0; i < arguments.length; i++) {
-                
-                    number += arguments[i];
-                }
-
-                return number;
-            },
-            dif() {
-                for (let i = 0; i < arguments.length; i++) {
-                    
-                    number -= arguments[i];
-                }
-
-                return number;
-            },
-            div() {
-                for (let i = 0; i < arguments.length; i++) {
-                    
-                    if (arguments[i] === 0) {
-                        throw new Error('division by 0');
-                    }
-                    
-                    number /= arguments[i];
-                }
-
-                return number;
-            },
-            mul() {
-                for (let i = 0; i < arguments.length; i++) {
-                    
-                    number *= arguments[i];
-                }
-
-                return number;
+    }  
+    let obj = {
+        sum() {
+            for (let i = 0; i < arguments.length; i++) {
+            
+                number += arguments[i];
             }
+
+            return number;
+        },
+        dif() {
+            for (let i = 0; i < arguments.length; i++) {
+                
+                number -= arguments[i];
+            }
+
+            return number;
+        },
+        div() {
+            for (let i = 0; i < arguments.length; i++) {
+                
+                if (arguments[i] === 0) {
+                    throw new Error('division by 0');
+                }
+                
+                number /= arguments[i];
+            }
+
+            return number;
+        },
+        mul() {
+            for (let i = 0; i < arguments.length; i++) {
+                
+                number *= arguments[i];
+            }
+
+            return number;
         }
-
-        return obj;
-
-    } catch (e) {
-        
-        return e.message;
     }
+
+    return obj;
 }
 
 /* При решении задач, пострайтесь использовать отладчик */
