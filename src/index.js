@@ -12,6 +12,7 @@
  */
 function createDivWithText(text) {
     const div = document.createElement('div');
+
     div.textContent = text;
 
     return document.body.appendChild(div);
@@ -53,21 +54,21 @@ function findAllPSiblings(where) {
     let arr = [];
     let whereArg = where.children;
 
-    //////////////////* Через цикл for...of *////////////////////
-      for (const node of whereArg) {
-        if(node.tagName === 'P') {
-          arr.push(node.previousElementSibling);
+    // ////////////////* Через цикл for...of *////////////////////
+    for (const node of whereArg) {
+        if (node.tagName === 'P') {
+            arr.push(node.previousElementSibling);
         }
-      }
+    }
 
-    //////////////////* Через цикл for *////////////////////////
+    // ////////////////* Через цикл for *////////////////////////
     // for (let i = 0; i < whereArg.length - 1; i++) {
     //     if (whereArg[i].nextElementSibling.tagName === 'P') {
     //         arr.push(whereArg[i]);
     //     }
     // }
-      
-      return(arr);
+
+    return (arr);
 }
 
 /*
@@ -113,7 +114,7 @@ function deleteTextNodes(where) {
     for (const node of where.childNodes) {
 
         if (node.nodeType === 3) {
-          where.removeChild(node);
+            where.removeChild(node);
         }
     }
 
@@ -137,9 +138,9 @@ function deleteTextNodesRecursive(where) {
     for (let i = 0; i < where.childNodes.length; i++) {
         
         if (where.childNodes[i].nodeType === 3) {            
-          where.childNodes[i].remove();
+            where.childNodes[i].remove();
             i--;
-          } else if (where.childNodes[i].nodeType === 1) {
+        } else if (where.childNodes[i].nodeType === 1) {
             deleteTextNodesRecursive(where.childNodes[i]);
         }
     }
