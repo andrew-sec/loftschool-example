@@ -45,9 +45,21 @@ function skipDefault(eventName, target) {
    emulateClick(document.querySelector('a')) // для указанного элемента должно быть сэмулировано события click
  */
 function emulateClick(target) {
-    const newClick = new Event ('click');
+    const newClick = new Event ('click'); // Еще вариант через new CustomEvent()
 
     target.dispatchEvent(newClick);
+
+    /* //Старый способ для IE9+
+    let newClick = document.createEvent('Event');
+
+    newClick.initEvent('click', true, true);
+    target.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log("TADAM!!!!");
+        }, false);
+
+    target.dispatchEvent(newClick);
+    */
 }
 
 /*
