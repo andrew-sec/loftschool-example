@@ -9,7 +9,7 @@
    addListener('click', document.querySelector('a'), () => console.log('...')) // должна добавить указанный обработчик кликов на указанный элемент
  */
 function addListener(eventName, target, fn) {
-    target.addEventListener('click', fn);
+    target.addEventListener(eventName, fn);
 }
 
 /*
@@ -21,7 +21,7 @@ function addListener(eventName, target, fn) {
    removeListener('click', document.querySelector('a'), someHandler) // должна удалить указанный обработчик кликов на указанный элемент
  */
 function removeListener(eventName, target, fn) {
-    target.removeEventListener('click', fn);
+    target.removeEventListener(eventName, fn);
 }
 
 /*
@@ -94,7 +94,9 @@ function once(target, fn) {
         target.removeEventListener('click', handler);
     }
 
-    target.addEventListener('click', handler);
+    target.addEventListener('click', handler); 
+    // Альтернативный вариант через объект options
+    // target.addEventListener('click', fn, {once: true});
 }
 
 export {
