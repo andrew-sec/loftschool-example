@@ -37,7 +37,7 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-
+   
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
@@ -48,7 +48,7 @@ function loadTowns() {
             if (xhr.status >= 400) {
                 reject();
             } else {
-                const townSort = xhr.response.sort((a, b) => {
+                townSort = xhr.response.sort((a, b) => {
                     if (a.name > b.name) {
 
                         return 1;
@@ -70,7 +70,6 @@ loadTowns()
     .then((townSort) => {
         loadingBlock.style.display = 'none';
         filterBlock.style.display = 'block';
-        cityArr = townSort;
     })
     .catch(() => {
         const repeateButton = document.createElement('button');
@@ -91,12 +90,17 @@ loadTowns()
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
-    let fullToLower = full.toLowerCase();
-    let chunkToLower = chunk.toLowerCase();
+    chunk = chunk.toLowerCase();
+    full = full.toLowerCase(); 
 
-    return (fullToLower.includes(chunkToLower)) ? true : false;
+    if (full.indexOf(chunk) + 1) {
+        return true
+    }
+    
+    return false
 }
-let cityArr = [];
+
+let townSort = [];
 /* Блок с надписью "Загрузка" */
 const loadingBlock = homeworkContainer.querySelector('#loading-block');
 /* Блок с текстовым полем и результатом поиска */
@@ -106,11 +110,24 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-filterInput.addEventListener('keyup', function () {
-    filterResult.innerHTML = 
-    for (const town of cityArr) {
-        isMatching(cityArr, town);
+filterInput.addEventListener('keyup', function (e) {
+    let subStr = e.target.value;
+
+    filterResult.innerHTML = ''
+
+    for (const item of townSort) {
+        if (isMatching(item.name, subStr)) {
+            const newDiv = document.createElement('div');
+            
+            newDiv.innerHTML = item.name;
+            filterResult.appendChild(newDiv);
+        }
+        if (subStr === '') {
+            filterResult.innerHTML = '';
+        }
     }
+    
+    // filterResult.textContent = isMatching(townSort, e.target.value) || '';
 });
 
 export {
