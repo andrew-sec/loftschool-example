@@ -109,7 +109,7 @@ addButton.addEventListener('click', () => {
     filterCookie();
 });
 
-listTable.addEventListener('click', function (event) {
+listTable.addEventListener('click', (event) => {
     if (event.target.tagName === 'BUTTON') {
         const removeElement = event.target.parentNode.parentNode;
         const cookieName = removeElement.firstElementChild.innerText;
