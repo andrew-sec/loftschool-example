@@ -40,12 +40,10 @@ const addNameInput = homeworkContainer.querySelector('#add-name-input');
 const addValueInput = homeworkContainer.querySelector('#add-value-input');
 // кнопка "добавить cookie"
 const addButton = homeworkContainer.querySelector('#add-button');
-// кнопка "удалить cookie"
-// const removeButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
     let cookieObj = cookieParse();
 
     createTable(cookieObj);
@@ -55,17 +53,10 @@ const createTable = (cookieObj) => {
     listTable.innerHTML = '';
     
     for (const name in cookieObj) {
-        const removeButton = document.createElement('button')
         const tr = document.createElement('tr');
 
-        removeButton.setAttribute('id', 'removeButton')
-        removeButton.innerText = 'Удалить cookie';
-
-        tr.innerHTML = `<td>${name}</td><td>${cookieObj[name]}</td><td></td>`;
-        const lastChild = tr.lastChild;
-
+        tr.innerHTML = `<td>${name}</td><td>${cookieObj[name]}</td><td><button>Удалить cookie</button></td>`;
         listTable.appendChild(tr);
-        lastChild.appendChild(removeButton);
     }
 }
 
